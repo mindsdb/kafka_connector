@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/kafka-connect-sample.iml" filepath="$PROJECT_DIR$/kafka-connect-sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mindsdb-connect.iml" filepath="$PROJECT_DIR$/mindsdb-connect.iml" />
     </modules>
   </component>
 </project>

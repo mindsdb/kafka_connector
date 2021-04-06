@@ -7,9 +7,9 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.acme.kafka.connect</groupId>
-    <artifactId>kafka-connect-sample</artifactId>
-    <description>Kafka Connect Source Connector for Sample</description>
+    <groupId>com.mindsdb.connect</groupId>
+    <artifactId>mindsdb-connect</artifactId>
+    <description>Mindsdb Kafka connector</description>
     <version>0.1.0</version>
 
     <licenses>
@@ -22,8 +22,8 @@
 
     <developers>
         <developer>
-            <id>userID</id>
-            <name>Your Name</name>
+            <id>1</id>
+            <name>George Hosu</name>
             <roles>
                 <role>Committer</role>
             </roles>

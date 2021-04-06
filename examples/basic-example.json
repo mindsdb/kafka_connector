@@ -1,7 +1,7 @@
 {
     "name": "basic-example",
     "config": {
-        "connector.class": "com.acme.kafka.connect.sample.SampleSourceConnector",
+        "connector.class": "com.mindsdb.kafka.connect.SampleSourceConnector",
         "first.required.param": "Kafka",
         "second.required.param": "Connect",
         "tasks.max": "1"

@@ -1,4 +1,4 @@
-package com.acme.kafka.connect.sample;
+package com.mindsdb.kafka.connect;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -6,16 +6,16 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class PropertiesUtil {
+public final class MindsdbUtil {
 
     private static final String CONNECTOR_VERSION = "connector.version";
 
-    private static Logger log = LoggerFactory.getLogger(PropertiesUtil.class);
-    private static String propertiesFile = "/kafka-connect-sample.properties";
+    private static Logger log = LoggerFactory.getLogger(MindsdbUtil.class);
+    private static String propertiesFile = "/mindsdb-connect.properties";
     private static Properties properties;
 
     static {
-        try (InputStream stream = PropertiesUtil.class.getResourceAsStream(propertiesFile)) {
+        try (InputStream stream = MindsdbUtil.class.getResourceAsStream(propertiesFile)) {
             properties = new Properties();
             properties.load(stream);
         } catch (Exception ex) {
@@ -27,7 +27,7 @@ public final class PropertiesUtil {
         return properties.getProperty(CONNECTOR_VERSION);
     }
 
-    private PropertiesUtil() {
+    private MindsdbUtil() {
     }
 
 }

@@ -1,4 +1,4 @@
-package com.acme.kafka.connect.sample;
+package com.mindsdb.kafka.connect;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,13 +14,13 @@ public class SampleSourceConnectorTest {
 
     @Test
     public void connectorVersionShouldMatch() {
-        String version = PropertiesUtil.getConnectorVersion();
-        assertEquals(version, new SampleSourceConnector().version());
+        String version = MindsdbUtil.getConnectorVersion();
+        assertEquals(version, new MindsdbConnector().version());
     }
 
     @Test
     public void checkClassTask() {
-        Class<? extends Task> taskClass = new SampleSourceConnector().taskClass();
+        Class<? extends Task> taskClass = new MindsdbConnector().taskClass();
         assertEquals(SampleSourceTask.class, taskClass);
     }
 
@@ -28,7 +28,7 @@ public class SampleSourceConnectorTest {
     public void checkMissingRequiredParams() {
         assertThrows(ConnectException.class, () -> {
             Map<String, String> props = new HashMap<>();
-            new SampleSourceConnector().validate(props);
+            new MindsdbConnector().validate(props);
         });
     }
 

@@ -1,4 +1,4 @@
-package com.acme.kafka.connect.sample;
+package com.mindsdb.kafka.connect;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,32 +12,28 @@ import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.source.SourceRecord;
 import org.apache.kafka.connect.source.SourceTask;
 
-import static com.acme.kafka.connect.sample.SampleSourceConnectorConfig.*;
+public class MindsdbTask extends SourceTask {
 
-public class SampleSourceTask extends SourceTask {
+    private static Logger log = LoggerFactory.getLogger(MindsdbTask.class);
 
-    private static Logger log = LoggerFactory.getLogger(SampleSourceTask.class);
-
-    private SampleSourceConnectorConfig config;
-    private int monitorThreadTimeout;
+    private MindsdbConnectorConfig config;
     private List<String> sources;
 
     @Override
     public String version() {
-        return PropertiesUtil.getConnectorVersion();
+        return MindsdbUtil.getConnectorVersion();
     }
 
     @Override
     public void start(Map<String, String> properties) {
-        config = new SampleSourceConnectorConfig(properties);
-        monitorThreadTimeout = config.getInt(MONITOR_THREAD_TIMEOUT_CONFIG);
+        config = new MindsdbConnectorConfig(properties);
         String sourcesStr = properties.get("sources");
         sources = Arrays.asList(sourcesStr.split(","));
     }
 
     @Override
     public List<SourceRecord> poll() throws InterruptedException {
-        Thread.sleep(monitorThreadTimeout / 2);
+        Thread.sleep(2);
         List<SourceRecord> records = new ArrayList<>();
         for (String source : sources) {
             log.info("Polling data from the source '" + source + "'");
