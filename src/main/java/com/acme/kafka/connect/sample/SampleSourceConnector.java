@@ -11,9 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.kafka.common.config.Config;
 import org.apache.kafka.common.config.ConfigDef;
-import org.apache.kafka.common.config.ConfigValue;
 import org.apache.kafka.connect.connector.Task;
-import org.apache.kafka.connect.errors.ConnectException;
 import org.apache.kafka.connect.source.SourceConnector;
 import org.apache.kafka.connect.util.ConnectorUtils;
 
@@ -45,25 +43,6 @@ public class SampleSourceConnector extends SourceConnector {
     @Override
     public Config validate(Map<String, String> connectorConfigs) {
         Config config = super.validate(connectorConfigs);
-        List<ConfigValue> configValues = config.configValues();
-        boolean missingTopicDefinition = true;
-        for (ConfigValue configValue : configValues) {
-            if (configValue.name().equals(FIRST_REQUIRED_PARAM_CONFIG)
-            || configValue.name().equals(SECOND_REQUIRED_PARAM_CONFIG)) {
-                if (configValue.value() != null) {
-                    missingTopicDefinition = false;
-                    break;
-                }
-            }
-        }
-        if (missingTopicDefinition) {
-            throw new ConnectException(String.format(
-                "There is no definition of [XYZ] in the "
-                + "configuration. Either the property "
-                + "'%s' or '%s' must be set in the configuration.",
-                FIRST_NONREQUIRED_PARAM_CONFIG,
-                SECOND_NONREQUIRED_PARAM_CONFIG));
-        }
         return config;
     }
 
@@ -71,11 +50,8 @@ public class SampleSourceConnector extends SourceConnector {
     public void start(Map<String, String> originalProps) {
         this.originalProps = originalProps;
         config = new SampleSourceConnectorConfig(originalProps);
-        String firstParam = config.getString(FIRST_NONREQUIRED_PARAM_CONFIG);
-        String secondParam = config.getString(SECOND_NONREQUIRED_PARAM_CONFIG);
-        int monitorThreadTimeout = config.getInt(MONITOR_THREAD_TIMEOUT_CONFIG);
         sourceMonitorThread = new SourceMonitorThread(
-            context, firstParam, secondParam, monitorThreadTimeout);
+            context, "1", "2", 20);
         sourceMonitorThread.start();
     }
 

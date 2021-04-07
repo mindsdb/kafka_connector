@@ -2,8 +2,15 @@
     "name": "basic-example",
     "config": {
         "connector.class": "com.acme.kafka.connect.sample.SampleSourceConnector",
-        "first.required.param": "Kafka",
-        "second.required.param": "Connect",
-        "tasks.max": "1"
+        "mindsdb.url": "http://localhost:47334",
+        "kafka.api.host": "localhost",
+        "kafka.api.port": "9000",
+        "kafka.api.key": null,
+        "kafka.api.secret": null,
+        "kafka.api.name": "test_kafka_integration",
+        "predictor.name": "test_predictor",
+        "input.topic": "test_input_topic",
+        "output.forecast.topic": "test_output_forecast_topic",
+        "output.anomaly.topic": "test_output_anomaly_topic"
     }
 }

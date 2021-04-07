@@ -30,7 +30,7 @@ public class SampleSourceTask extends SourceTask {
     @Override
     public void start(Map<String, String> properties) {
         config = new SampleSourceConnectorConfig(properties);
-        monitorThreadTimeout = config.getInt(MONITOR_THREAD_TIMEOUT_CONFIG);
+        monitorThreadTimeout = 20;
         String sourcesStr = properties.get("sources");
         sources = Arrays.asList(sourcesStr.split(","));
     }
