@@ -4,7 +4,7 @@ Based on https://github.com/riferrei/kafka-source-connector
 
 ## Building + testing
 
-`mvn clean package`
+`mvn clean package; cp target/components/packages/you-mindsdb-connect-mindsdb-0.1.0/you-mindsdb-connect-mindsdb-0.1.0/lib/mindsdb-connect-mindsdb-0.1.0.jar .`
 
 Run kafka in a docker container:
 `docker-compose up`
