@@ -1,7 +1,7 @@
 {
     "name": "basic-example",
     "config": {
-        "connector.class": "com.acme.kafka.connect.mindsdb.MindsdbSinkConnector",
+        "connector.class": "com.acme.mindsdb.connect.mindsdb.MindsdbSinkConnector",
         "mindsdb.url": "http://localhost:47334",
         "kafka.api.host": "localhost",
         "kafka.api.port": "9000",

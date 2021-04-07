@@ -60,4 +60,4 @@
           CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
           CONNECT_PLUGIN_PATH: '/usr/share/java'
         volumes:
-          - ./target/components/packages/you-kafka-connect-mindsdb-0.1.0/you-kafka-connect-mindsdb-0.1.0/lib:/usr/share/java/kafka-connect-mindsdb
+          - ./target/components/packages/you-mindsdb-connect-mindsdb-0.1.0/you-mindsdb-connect-mindsdb-0.1.0/lib:/usr/share/java/mindsdb-connect-mindsdb

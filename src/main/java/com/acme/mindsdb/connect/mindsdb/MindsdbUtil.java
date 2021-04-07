@@ -1,4 +1,4 @@
-package com.acme.kafka.connect.mindsdb;
+package com.acme.mindsdb.connect.mindsdb;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

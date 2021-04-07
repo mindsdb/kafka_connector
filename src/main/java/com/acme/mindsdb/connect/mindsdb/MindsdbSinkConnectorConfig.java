@@ -1,4 +1,4 @@
-package com.acme.kafka.connect.mindsdb;
+package com.acme.mindsdb.connect.mindsdb;
 
 import java.util.Map;
 
@@ -16,7 +16,7 @@ public class MindsdbSinkConnectorConfig extends AbstractConfig {
     public static final ConfigDef CONFIG_DEF = new ConfigDef()
             .define("mindsdb.url", Type.STRING, null, Importance.HIGH, "Root url for mindsdb's http interface")
             .define("kafka.api.host", Type.STRING, null, Importance.HIGH, "The kafka_host on which kafka is running")
-            .define("kafka.api.port", Type.INT, null, Importance.HIGH, "The port on which kafka is running")
+            .define("kafka.api.port", Type.STRING, null, Importance.HIGH, "The port on which kafka is running")
             .define("kafka.api.key", Type.STRING, null, Importance.HIGH, "The key for kafka")
             .define("kafka.api.secret", Type.STRING, null, Importance.HIGH, "The secret for kafka")
             .define("kafka.api.name", Type.STRING, null, Importance.HIGH, "Name of your kafka integration")

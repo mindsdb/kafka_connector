@@ -1,4 +1,4 @@
-package com.acme.kafka.connect.mindsdb;
+package com.acme.mindsdb.connect.mindsdb;
 
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
@@ -46,10 +46,8 @@ public class MindsdbSinkConnector extends SinkConnector {
     @Override
     public void start(Map<String, String> props) {
         config = new MindsdbSinkConnectorConfig(props);
-        log.error("\n\n\n\n STARTED MINDSDB CONNECTOR\n\n\n\n");
         add_kafka_integration();
         add_kafka_stream();
-        log.error("\n\n\n\n SENT DATA TO MINDSDB\n\n\n\n");
     }
 
 

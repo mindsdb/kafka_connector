@@ -1,4 +1,4 @@
-package com.acme.kafka.connect.mindsdb;
+package com.acme.mindsdb.connect.mindsdb;
 
 import java.util.Collection;
 import java.util.Map;
