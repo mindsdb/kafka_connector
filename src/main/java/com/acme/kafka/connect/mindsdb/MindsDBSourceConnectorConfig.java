@@ -1,4 +1,4 @@
-package com.acme.kafka.connect.sample;
+package com.acme.kafka.connect.mindsdb;
 
 import java.util.Map;
 
@@ -7,9 +7,9 @@ import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.common.config.ConfigDef.Importance;
 import org.apache.kafka.common.config.ConfigDef.Type;
 
-public class SampleSourceConnectorConfig extends AbstractConfig {
+public class MindsDBSourceConnectorConfig extends AbstractConfig {
 
-    public SampleSourceConnectorConfig(final Map<?, ?> originalProps) {
+    public MindsDBSourceConnectorConfig(final Map<?, ?> originalProps) {
         super(CONFIG_DEF, originalProps);
     }
 

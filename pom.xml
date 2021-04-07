@@ -8,8 +8,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.acme.kafka.connect</groupId>
-    <artifactId>kafka-connect-sample</artifactId>
-    <description>Kafka Connect Source Connector for Sample</description>
+    <artifactId>kafka-connect-mindsdb</artifactId>
+    <description>Kafka Connect Source Connector for Mindsdb</description>
     <version>0.1.0</version>
 
     <licenses>

@@ -1,4 +1,4 @@
-package com.acme.kafka.connect.sample;
+package com.acme.kafka.connect.mindsdb;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -11,7 +11,7 @@ public final class PropertiesUtil {
     private static final String CONNECTOR_VERSION = "connector.version";
 
     private static Logger log = LoggerFactory.getLogger(PropertiesUtil.class);
-    private static String propertiesFile = "/kafka-connect-sample.properties";
+    private static String propertiesFile = "/kafka-connect-mindsdb.properties";
     private static Properties properties;
 
     static {

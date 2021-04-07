@@ -1,4 +1,4 @@
-package com.acme.kafka.connect.sample;
+package com.acme.kafka.connect.mindsdb;
 
 import java.util.Arrays;
 import java.util.List;

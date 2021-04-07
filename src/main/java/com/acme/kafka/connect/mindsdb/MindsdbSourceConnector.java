@@ -1,4 +1,4 @@
-package com.acme.kafka.connect.sample;
+package com.acme.kafka.connect.mindsdb;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,14 +15,14 @@ import org.apache.kafka.connect.connector.Task;
 import org.apache.kafka.connect.source.SourceConnector;
 import org.apache.kafka.connect.util.ConnectorUtils;
 
-import static com.acme.kafka.connect.sample.SampleSourceConnectorConfig.*;
+import static com.acme.kafka.connect.mindsdb.MindsDBSourceConnectorConfig.*;
 
-public class SampleSourceConnector extends SourceConnector {
+public class MindsdbSourceConnector extends SourceConnector {
 
-    private final Logger log = LoggerFactory.getLogger(SampleSourceConnector.class);
+    private final Logger log = LoggerFactory.getLogger(MindsdbSourceConnector.class);
 
     private Map<String, String> originalProps;
-    private SampleSourceConnectorConfig config;
+    private MindsDBSourceConnectorConfig config;
     private SourceMonitorThread sourceMonitorThread;
 
     @Override
@@ -37,7 +37,7 @@ public class SampleSourceConnector extends SourceConnector {
 
     @Override
     public Class<? extends Task> taskClass() {
-        return SampleSourceTask.class;
+        return MindsDBSourceTask.class;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class SampleSourceConnector extends SourceConnector {
     @Override
     public void start(Map<String, String> originalProps) {
         this.originalProps = originalProps;
-        config = new SampleSourceConnectorConfig(originalProps);
+        config = new MindsDBSourceConnectorConfig(originalProps);
         sourceMonitorThread = new SourceMonitorThread(
             context, "1", "2", 20);
         sourceMonitorThread.start();

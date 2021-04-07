@@ -1,4 +1,4 @@
-package com.acme.kafka.connect.sample;
+package com.acme.kafka.connect.mindsdb;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,13 +12,11 @@ import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.source.SourceRecord;
 import org.apache.kafka.connect.source.SourceTask;
 
-import static com.acme.kafka.connect.sample.SampleSourceConnectorConfig.*;
+public class MindsDBSourceTask extends SourceTask {
 
-public class SampleSourceTask extends SourceTask {
+    private static Logger log = LoggerFactory.getLogger(MindsDBSourceTask.class);
 
-    private static Logger log = LoggerFactory.getLogger(SampleSourceTask.class);
-
-    private SampleSourceConnectorConfig config;
+    private MindsDBSourceConnectorConfig config;
     private int monitorThreadTimeout;
     private List<String> sources;
 
@@ -29,7 +27,7 @@ public class SampleSourceTask extends SourceTask {
 
     @Override
     public void start(Map<String, String> properties) {
-        config = new SampleSourceConnectorConfig(properties);
+        config = new MindsDBSourceConnectorConfig(properties);
         monitorThreadTimeout = 20;
         String sourcesStr = properties.get("sources");
         sources = Arrays.asList(sourcesStr.split(","));
