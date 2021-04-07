@@ -3,7 +3,6 @@
 
     services:
       zookeeper:
-        network_mode: "host"
         image: confluentinc/cp-zookeeper:5.5.0
         hostname: zookeeper
         container_name: zookeeper
@@ -14,7 +13,6 @@
           ZOOKEEPER_TICK_TIME: 2000
 
       kafka:
-        network_mode: "host"
         image: confluentinc/cp-enterprise-kafka:5.5.0
         hostname: kafka
         container_name: kafka
@@ -33,7 +31,6 @@
           CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
 
       connect:
-        network_mode: "host"
         image: confluentinc/cp-kafka-connect:5.5.0
         hostname: connect
         container_name: connect
