@@ -46,8 +46,10 @@ public class MindsdbSinkConnector extends SinkConnector {
     @Override
     public void start(Map<String, String> props) {
         config = new MindsdbSinkConnectorConfig(props);
+        log.error("\n\n\n\n STARTED MINDSDB CONNECTOR\n\n\n\n");
         add_kafka_integration();
         add_kafka_stream();
+        log.error("\n\n\n\n SENT DATA TO MINDSDB\n\n\n\n");
     }
 
 
@@ -65,7 +67,7 @@ public class MindsdbSinkConnector extends SinkConnector {
     private void mindsdb_post_with_params(HashMap<String, Object> parameters, String endpoint) throws Exception {
         URL url = new URL(config.getString("mindsdb.url") + endpoint);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("POST");
+        con.setRequestMethod("PUT");
         con.setDoOutput(true);
 
         DataOutputStream out = new DataOutputStream(con.getOutputStream());
@@ -74,6 +76,7 @@ public class MindsdbSinkConnector extends SinkConnector {
         out.close();
 
         int status = con.getResponseCode();
+        con.disconnect();
     }
 
     private void add_kafka_integration() {
@@ -86,7 +89,7 @@ public class MindsdbSinkConnector extends SinkConnector {
         parameters.put("topic", null);
         parameters.put("enabled", true);
         try {
-            mindsdb_post_with_params(parameters, "/api/config/integrations");
+            mindsdb_post_with_params(parameters, "/api/config/integrations/" + config.getString("kafka.api.name"));
         } catch (Exception e) {
             log.error(e.toString());
         }
@@ -95,10 +98,10 @@ public class MindsdbSinkConnector extends SinkConnector {
     private void add_kafka_stream() {
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("predictor_name", config.getString("predictor.name"));
-        parameters.put("input_topic", config.getString("input.topic"));
+        parameters.put("input_topic", config.getString("topics"));
         parameters.put("output_topic", config.getString("output.forecast.topic"));
         try {
-            mindsdb_post_with_params(parameters, "/api/config/integrations");
+            mindsdb_post_with_params(parameters, "/api/stream/" + config.getString("topics") + "_" + config.getString("predictor.name") + "_" + config.getString("output.forecast.topic"));
         } catch (Exception e) {
             log.error(e.toString());
         }

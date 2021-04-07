@@ -21,7 +21,7 @@ public class MindsdbSinkConnectorConfig extends AbstractConfig {
             .define("kafka.api.secret", Type.STRING, null, Importance.HIGH, "The secret for kafka")
             .define("kafka.api.name", Type.STRING, null, Importance.HIGH, "Name of your kafka integration")
             .define("predictor.name", Type.STRING, null, Importance.HIGH, "Name of the predictor you want to integrate with")
-            .define("input.topic", Type.STRING, null, Importance.HIGH, "Topic the predictor should listen to")
+            .define("topics", Type.STRING, null, Importance.HIGH, "Topic the predictor should listen to")
             .define("output.forecast.topic", Type.STRING, null, Importance.HIGH, "Topic the predictor should put predictions in")
             .define("output.anomaly.topic", Type.STRING, null, Importance.HIGH, "Topic the predictor should put anomaly detection warnings in");
 
