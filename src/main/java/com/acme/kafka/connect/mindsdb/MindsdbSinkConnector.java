@@ -83,10 +83,10 @@ public class MindsdbSinkConnector extends SinkConnector {
 
     private void add_kafka_integration() {
         HashMap<String, Object> parameters = new HashMap<>();
-        parameters.put("kafka_host", config.getString("kafka.host"));
-        parameters.put("kafka_port", config.getString("kafka.port"));
-        parameters.put("kafka_key", config.getString("kafka.key"));
-        parameters.put("kafka_secret", config.getString("kafka.secret"));
+        parameters.put("kafka_host", config.getString("kafka.api.host"));
+        parameters.put("kafka_port", config.getString("kafka.api.port"));
+        parameters.put("kafka_key", config.getString("kafka.api.key"));
+        parameters.put("kafka_secret", config.getString("kafka.api.secret"));
         parameters.put("type", "kafka");
         parameters.put("topic", null);
         parameters.put("enabled", true);
