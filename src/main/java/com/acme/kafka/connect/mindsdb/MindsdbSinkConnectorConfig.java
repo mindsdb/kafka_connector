@@ -7,9 +7,9 @@ import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.common.config.ConfigDef.Importance;
 import org.apache.kafka.common.config.ConfigDef.Type;
 
-public class MindsDBSourceConnectorConfig extends AbstractConfig {
+public class MindsdbSinkConnectorConfig extends AbstractConfig {
 
-    public MindsDBSourceConnectorConfig(final Map<?, ?> originalProps) {
+    public MindsdbSinkConnectorConfig(final Map<?, ?> originalProps) {
         super(CONFIG_DEF, originalProps);
     }
 
