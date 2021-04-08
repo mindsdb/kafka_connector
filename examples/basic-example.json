@@ -2,7 +2,9 @@
     "name": "basic-example",
     "config": {
         "connector.class": "com.acme.mindsdb.connect.mindsdb.MindsdbSinkConnector",
-        "mindsdb.url": "http://172.17.0.1:47334",
+        "mindsdb.url": "http://192.168.0.112:47334",
+        "mindsdb.user": "mdb_cloud_user",
+        "mindsdb.password": "mdb_cloud_password",
         "kafka.api.host": "localhost",
         "kafka.api.port": "9000",
         "kafka.api.key": "null",

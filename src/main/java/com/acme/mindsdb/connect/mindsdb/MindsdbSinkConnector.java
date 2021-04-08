@@ -64,7 +64,7 @@ public class MindsdbSinkConnector extends SinkConnector {
     // Implementation based on hieroglyphs from a pre stone-age cave wall: https://www.baeldung.com/java-http-request
     private void mindsdb_post_with_params(HashMap<String, Object> parameters, String endpoint) throws Exception {
         URL url = new URL(config.getString("mindsdb.url") + endpoint);
-        log.error("\n\n\n\n PUTTING TO " + config.getString("mindsdb.url") + endpoint + " \n\n\n\n");
+        log.error("\nSending request to: " + config.getString("mindsdb.url") + endpoint + "\n");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("PUT");
         con.setDoOutput(true);

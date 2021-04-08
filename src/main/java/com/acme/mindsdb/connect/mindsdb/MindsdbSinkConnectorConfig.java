@@ -15,6 +15,8 @@ public class MindsdbSinkConnectorConfig extends AbstractConfig {
 
     public static final ConfigDef CONFIG_DEF = new ConfigDef()
             .define("mindsdb.url", Type.STRING, null, Importance.HIGH, "Root url for mindsdb's http interface")
+            .define("mindsdb.user", Type.STRING, null, Importance.HIGH, "User for mindsdb (only required for cloud)")
+            .define("mindsdb.password", Type.STRING, null, Importance.HIGH, "Password for mindsdb (only required for cloud)")
             .define("kafka.api.host", Type.STRING, null, Importance.HIGH, "The kafka_host on which kafka is running")
             .define("kafka.api.port", Type.STRING, null, Importance.HIGH, "The port on which kafka is running")
             .define("kafka.api.key", Type.STRING, null, Importance.HIGH, "The key for kafka")
