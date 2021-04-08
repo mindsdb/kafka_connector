@@ -45,6 +45,7 @@
         <connect.api.version>2.5.0</connect.api.version>
         <junit.jupiter.version>5.6.2</junit.jupiter.version>
         <testcontainers.version>1.14.1</testcontainers.version>
+        <json.version>20190722</json.version>
     </properties>
 
     <dependencies>
@@ -72,6 +73,11 @@
             <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${json.version}</version>
+    </dependency>
     </dependencies>
 
     <build>

@@ -12,6 +12,8 @@ import org.apache.kafka.connect.sink.SinkConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.json.JSONObject;
+
 import org.apache.kafka.common.config.Config;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.connect.connector.Task;
@@ -70,8 +72,9 @@ public class MindsdbSinkConnector extends SinkConnector {
         con.setDoOutput(true);
         con.setConnectTimeout(10);
 
+        JSONObject payload = new JSONObject(parameters)
         DataOutputStream out = new DataOutputStream(con.getOutputStream());
-        out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
+        out.write(payload.toString())
         out.flush();
         out.close();
 
@@ -81,6 +84,7 @@ public class MindsdbSinkConnector extends SinkConnector {
 
     private void add_kafka_integration() {
         HashMap<String, Object> parameters = new HashMap<>();
+        HashMap<String, Object> payload = new HashMap<>();
         parameters.put("kafka_host", config.getString("kafka.api.host"));
         parameters.put("kafka_port", config.getString("kafka.api.port"));
         parameters.put("kafka_key", config.getString("kafka.api.key"));
@@ -88,8 +92,9 @@ public class MindsdbSinkConnector extends SinkConnector {
         parameters.put("type", "kafka");
         parameters.put("topic", null);
         parameters.put("enabled", true);
+        payload.put("params", parameters)
         try {
-            mindsdb_post_with_params(parameters, "/api/config/integrations/" + config.getString("kafka.api.name"));
+            mindsdb_post_with_params(payload, "/api/config/integrations/" + config.getString("kafka.api.name"));
         } catch (Exception e) {
             log.error(e.toString());
         }
@@ -101,7 +106,7 @@ public class MindsdbSinkConnector extends SinkConnector {
         parameters.put("input_topic", config.getString("topics"));
         parameters.put("output_topic", config.getString("output.forecast.topic"));
         try {
-            mindsdb_post_with_params(parameters, "/api/stream/" + config.getString("topics") + "_" + config.getString("predictor.name") + "_" + config.getString("output.forecast.topic"));
+            mindsdb_post_with_params(parameters, "/api/streams/" + config.getString("topics") + "_" + config.getString("predictor.name") + "_" + config.getString("output.forecast.topic"));
         } catch (Exception e) {
             log.error(e.toString());
         }
