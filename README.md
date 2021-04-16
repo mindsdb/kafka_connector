@@ -1,18 +1,30 @@
-# Mindsbd Kafka Connector
+## MindsDB Kafka Sink Connector
 
-Based on https://github.com/riferrei/kafka-source-connector
+Basic example of a Kafka Connect sink connector. This is a WIP. The current
+implementation sends config data to a mindsdb server, in order to start a
+consumer in the server pointing to a kafka data stream. The tasks of
+this connector only print data to console.
 
-## Building + testing
 
-`mvn clean package; cp target/components/packages/you-mindsdb-connect-mindsdb-0.1.0/you-mindsdb-connect-mindsdb-0.1.0/lib/mindsdb-connect-mindsdb-0.1.0.jar .`
+### Requirements
+* jdk 11
+* maven
+* docker-compose
 
-Run kafka in a docker container:
-`docker-compose up`
+### Building the project locally
 
-Configure the connector:
-`curl -X POST -H "Content-Type:application/json" -d @examples/basic-example.json http://localhost:8083/connectors`
+With maven installed in your system, simply run:
 
-(Note, this will fail at the moment because for unkonw reason kafka "loads" the plugin but then fails to aknowledge it's pressence in the connector list)
+```shell
+$ mvn clean package
+```
 
-Remove it to configure/add one again:
-`curl -X DELETE  http://localhost:8083/connectors/basic-example`
+### Running the project
+
+To start a local kafka server with the connector included, simply run
+```shell
+$ docker-compose up -d
+```
+
+The compose file builds the project's Dockerfile, which takes care of building the project and adding it to kafka connect.
+Once all the containers are running, you can manually add the connector in [localhost:9021](http://localhost:9021/clusters).
