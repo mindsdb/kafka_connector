@@ -52,6 +52,7 @@ public class MindsDBClientImpl implements MindsDBClient {
 
         // Need also add checks for 'sasl_mechanism' and 'security_protocol' because
         // next two params depend on them
+        // see https://kafka-python.readthedocs.io/en/master/apidoc/KafkaClient.html for details
         connection.put("sasl_plain_username", config.getKafkaAuthKey());
         connection.put("sasl_plain_password", config.getKafkaAuthSecret());
         parameters.put("connection", connection);
