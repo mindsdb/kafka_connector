@@ -47,12 +47,15 @@ public class MindsDBClientImpl implements MindsDBClient {
     @Override
     public void createIntegration() throws MindsDBApiException {
         HashMap<String, Object> parameters = new HashMap<>();
-        parameters.put("kafka_host", config.getKafkaHost());
-        parameters.put("kafka_port", config.getKafkaPort());
-        parameters.put("kafka_key", config.getKafkaAuthKey());
-        parameters.put("kafka_secret", config.getKafkaAuthSecret());
+        HashMap<String, Object> connection = new HashMap<>();
+        connection.put("bootstrap_servers", config.getKafkaHost() + ":" + config.getKafkaPort());
+
+        // Need also add checks for 'sasl_mechanism' and 'security_protocol' because
+        // next two params depend on them
+        connection.put("sasl_plain_username", config.getKafkaAuthKey());
+        connection.put("sasl_plain_password", config.getKafkaAuthSecret());
+        parameters.put("connection", connection);
         parameters.put("type", "kafka");
-        parameters.put("topic", config.getTopics());
         parameters.put("enabled", true);
 
         postToMindsDb(
@@ -65,8 +68,10 @@ public class MindsDBClientImpl implements MindsDBClient {
     public void createStream() throws MindsDBApiException {
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("predictor", config.getPredictorName());
-        parameters.put("input_topic", config.getTopics());
-        parameters.put("output_topic", config.getForecastTopic());
+        parameters.put("stream_in", config.getTopics());
+        parameters.put("stream_out", config.getForecastTopic());
+        parameters.put("stream_anomaly", config.getAnomalyTopic());
+        parameters.put("integration_name", config.getApiName());
 
         postToMindsDb(
                 "/api/streams/" + config.getTopics() + "_" +
