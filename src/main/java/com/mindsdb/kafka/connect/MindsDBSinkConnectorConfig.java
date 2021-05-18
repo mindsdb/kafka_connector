@@ -17,6 +17,7 @@ public class MindsDBSinkConnectorConfig extends AbstractConfig {
     private static final String KAFKA_AUTH_SECRET = "kafka.api.secret";
     private static final String API_NAME = "kafka.api.name";
     private static final String PREDICTOR_NAME = "predictor.name";
+    private static final String PREDICTOR_TYPE = "predictor.type";
     private static final String TOPICS = "topics";
     private static final String FORECAST_TOPIC = "output.forecast.topic";
     private static final String ANOMALY_TOPIC = "output.anomaly.topic";
@@ -31,6 +32,7 @@ public class MindsDBSinkConnectorConfig extends AbstractConfig {
             .define(KAFKA_AUTH_SECRET, Type.STRING, null, Importance.HIGH, "The secret for kafka")
             .define(API_NAME, Type.STRING, ConfigDef.NO_DEFAULT_VALUE, Importance.HIGH, "Name of your kafka integration")
             .define(PREDICTOR_NAME, Type.STRING, ConfigDef.NO_DEFAULT_VALUE, Importance.HIGH, "Name of the predictor you want to integrate with")
+            .define(PREDICTOR_TYPE, Type.STRING, "default", Importance.HIGH, "Name of the predictor you want to integrate with")
             .define(TOPICS, Type.STRING, ConfigDef.NO_DEFAULT_VALUE, Importance.HIGH, "Topic the predictor should listen to")
             .define(FORECAST_TOPIC, Type.STRING, ConfigDef.NO_DEFAULT_VALUE, Importance.HIGH, "Topic the predictor should put predictions in")
             .define(ANOMALY_TOPIC, Type.STRING, null, Importance.LOW, "Topic the predictor should put anomaly detection warnings in");
@@ -73,6 +75,10 @@ public class MindsDBSinkConnectorConfig extends AbstractConfig {
 
     public String getPredictorName() {
         return getString(PREDICTOR_NAME);
+    }
+
+    public String getPredictorType() {
+        return getString(PREDICTOR_TYPE);
     }
 
     public String getTopics() {

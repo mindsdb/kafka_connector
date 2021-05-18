@@ -53,8 +53,9 @@ public class MindsDBClientImpl implements MindsDBClient {
         // Need also add checks for 'sasl_mechanism' and 'security_protocol' because
         // next two params depend on them
         // see https://kafka-python.readthedocs.io/en/master/apidoc/KafkaClient.html for details
-        connection.put("sasl_plain_username", config.getKafkaAuthKey());
-        connection.put("sasl_plain_password", config.getKafkaAuthSecret());
+
+        // connection.put("sasl_plain_username", config.getKafkaAuthKey());
+        // connection.put("sasl_plain_password", config.getKafkaAuthSecret());
         parameters.put("connection", connection);
         parameters.put("type", "kafka");
         parameters.put("enabled", true);
@@ -73,6 +74,7 @@ public class MindsDBClientImpl implements MindsDBClient {
         parameters.put("stream_out", config.getForecastTopic());
         parameters.put("stream_anomaly", config.getAnomalyTopic());
         parameters.put("integration_name", config.getApiName());
+        parameters.put("type", config.getPredictorType());
 
         postToMindsDb(
                 "/api/streams/" + config.getTopics() + "_" +
