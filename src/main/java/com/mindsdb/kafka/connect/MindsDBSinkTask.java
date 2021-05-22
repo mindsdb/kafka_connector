@@ -20,7 +20,7 @@ public class MindsDBSinkTask extends SinkTask {
     private static final Logger LOG = LoggerFactory.getLogger(MindsDBSinkTask.class);
 
     private ErrantRecordReporter reporter;
-    private MindsDBSinkConnectorConfig config;
+    private MindsDBConnectorConfig config;
     private List<String> expectedProperties = Collections.emptyList();
 
     @Override
@@ -40,7 +40,7 @@ public class MindsDBSinkTask extends SinkTask {
 
             reporter = context.errantRecordReporter();
 
-            this.config = new MindsDBSinkConnectorConfig(map);
+            this.config = new MindsDBConnectorConfig(map);
             initExpectedProperties();
         } catch (NoClassDefFoundError | NoSuchMethodError e) {
             LOG.warn("Kafka versions prior to 2.6 do not support the errant record reporter.");

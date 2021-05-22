@@ -1,6 +1,6 @@
 package com.mindsdb.kafka.connect.client;
 
-import com.mindsdb.kafka.connect.MindsDBSinkConnectorConfig;
+import com.mindsdb.kafka.connect.MindsDBConnectorConfig;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public interface MindsDBClient {
     void createStream() throws MindsDBApiException;
     List<String> getPredictorColumns() throws MindsDBApiException;
 
-    static MindsDBClient getInstance(MindsDBSinkConnectorConfig config) {
+    static MindsDBClient getInstance(MindsDBConnectorConfig config) {
         return new MindsDBClientImpl(config);
     }
 }

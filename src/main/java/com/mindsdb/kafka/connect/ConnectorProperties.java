@@ -10,7 +10,7 @@ public class ConnectorProperties {
     private static final Logger log = LoggerFactory.getLogger(ConnectorProperties.class);
     private static String version = "unknown";
 
-    private static final String VERSION_FILE = "/mindsdb-kafka-sink-connector.properties";
+    private static final String VERSION_FILE = "/mindsdb-kafka-connector.properties";
 
     static {
         try {

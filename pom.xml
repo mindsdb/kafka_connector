@@ -5,17 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mindsdb</groupId>
-    <artifactId>mindsdb-kafka-sink-connector</artifactId>
+    <artifactId>mindsdb-kafka-connector</artifactId>
     <version>0.0.2</version>
     <packaging>jar</packaging>
-    <name>mindsdb-kafka-sink-connector</name>
+    <name>mindsdb-kafka-connector</name>
     <organization>
         <name>Mindsdb, Inc.</name>
         <url>https://mindsdb.com/</url>
     </organization>
     <url>https://mindsdb.com/</url>
     <description>
-        Mindsdb Sink Connector for Kafka Connect
+        Mindsdb Connector for Kafka Connect
     </description>
 
     <licenses>
@@ -92,7 +92,7 @@
                             <logo>logos/mindsdb.png</logo>
 
                             <supportProviderName>Mindsdb, Inc.</supportProviderName>
-                            <supportSummary>Mindsdb supports the Mindsdb sink connector as part of its Confluent Platform offering.</supportSummary>
+                            <supportSummary>Mindsdb supports the Mindsdb connector as part of its Confluent Platform offering.</supportSummary>
                             <!--supportUrl>https://docs.confluent.io/home/overview.html</supportUrl-->
                             <supportLogo>logos/mindsdb.png</supportLogo>
 

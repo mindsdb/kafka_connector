@@ -1,7 +1,7 @@
 package com.mindsdb.kafka.connect.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mindsdb.kafka.connect.MindsDBSinkConnectorConfig;
+import com.mindsdb.kafka.connect.MindsDBConnectorConfig;
 import com.mindsdb.kafka.connect.client.models.Predictor;
 import org.apache.kafka.connect.errors.ConnectException;
 
@@ -20,10 +20,10 @@ import java.util.*;
 public class MindsDBClientImpl implements MindsDBClient {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    private final MindsDBSinkConnectorConfig config;
+    private final MindsDBConnectorConfig config;
     private final HttpClient httpClient;
 
-    MindsDBClientImpl(MindsDBSinkConnectorConfig config) {
+    MindsDBClientImpl(MindsDBConnectorConfig config) {
         this.config = config;
         HttpClient.Builder clientBuilder = HttpClient.newBuilder();
 
