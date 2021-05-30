@@ -32,6 +32,18 @@
         <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.7.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.kafka</groupId>
@@ -69,6 +81,16 @@
             <artifactId>maven-assembly-plugin</artifactId>
             <version>3.3.0</version>
             <type>maven-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.10.0</version>
         </dependency>
     </dependencies>
 
@@ -137,6 +159,10 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
+            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -145,5 +171,4 @@
             </resource>
         </resources>
     </build>
-
 </project>

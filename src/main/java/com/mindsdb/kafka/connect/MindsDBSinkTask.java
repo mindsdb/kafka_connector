@@ -39,12 +39,12 @@ public class MindsDBSinkTask extends SinkTask {
             }
 
             reporter = context.errantRecordReporter();
-
-            this.config = new MindsDBConnectorConfig(map);
-            initExpectedProperties();
-        } catch (NoClassDefFoundError | NoSuchMethodError e) {
+        } catch (Exception e) {
             LOG.warn("Kafka versions prior to 2.6 do not support the errant record reporter.");
         }
+
+        this.config = new MindsDBConnectorConfig(map);
+        initExpectedProperties();
     }
 
     @Override
@@ -65,13 +65,13 @@ public class MindsDBSinkTask extends SinkTask {
         LOG.debug("Stopping sink task...");
     }
 
-    private void reportError(SinkRecord record, Throwable t) {
+    void reportError(SinkRecord record, Throwable t) {
         if (reporter != null) {
             reporter.report(record, t);
         }
     }
 
-    private boolean validSchema(Schema schema) {
+    boolean validSchema(Schema schema) {
         if (expectedProperties.isEmpty())
             return false;
 
@@ -85,7 +85,7 @@ public class MindsDBSinkTask extends SinkTask {
         return false;
     }
 
-    private void initExpectedProperties() {
+    void initExpectedProperties() {
         if (this.expectedProperties.isEmpty()) {
             MindsDBClient mindsDBClient = MindsDBClient.getInstance(config);
             try {
