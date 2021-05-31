@@ -25,30 +25,20 @@ jobs:
     - name: Installing mindsdb
       run: |
         pip install mindsdb
-    - name: Set up MINDSDB_HOST environment
+    - name: Set up environment variables
       run: |
-          ifconfig docker0
           echo "MINDSDB_HOST=$(ifconfig docker0 | grep 'inet ' | cut -d: -f2 | awk '{print $2}')" >> $GITHUB_ENV
+
     - name: Installing dependencies
       run: |
           python -m pip install -r tests/requirements.txt
-          # - name: Running Mindsdb
-          #   run: |
-          #      
-          #       python tests/make_config.py
-          #       cat config.json
-          #       # python -m mindsdb --config config.json
-          #       python -m mindsdb --config config.json > mindsdb.log 2>&1 &
 
     - name: Running tests
       run: |
           python tests/make_config.py
-          cat config.json
-          # python -m mindsdb --config config.json
-          # python -m mindsdb --config config.json > mindsdb.log 2>&1 &
-          # sleep 60
-
           python tests/test_connector.py
+      env:
+        CHECK_FOR_UPDATES: False
 
 
 
