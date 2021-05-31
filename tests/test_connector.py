@@ -5,6 +5,8 @@ import unittest
 import json
 import uuid
 import threading
+from subprocess import Popen
+import psutil
 
 import requests
 import kafka
@@ -81,12 +83,29 @@ class ConnectorTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        cls.sp = Popen(
+            ['python', '-m', 'mindsdb', '--api', 'http', '--config', 'config.json' ],
+            stdout=None,
+            stderr=None
+            # close_fds=True
+        )
+        time.sleep(40)
+
         upload_ds(DS_NAME)
         train_predictor(DS_NAME, PREDICTOR_NAME)
 
     @classmethod
     def tearDownClass(cls):
         requests.delete(f"{CONNECTORS_URL}/{CONNECTOR_NAME}")
+        try:
+            conns = psutil.net_connections()
+            pid = [x.pid for x in conns if x.status == 'LISTEN' and x.laddr[1] == 47334 and x.pid is not None]
+            if len(pid) > 0:
+                os.kill(pid[0], 9)
+            cls.sp.kill()
+        except Exception:
+            pass
+        time.sleep(40)
 
 
     def test_1_create_mindsdb_stream_via_connector(self):

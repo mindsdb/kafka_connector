@@ -45,8 +45,8 @@ jobs:
           python tests/make_config.py
           cat config.json
           # python -m mindsdb --config config.json
-          python -m mindsdb --config config.json > mindsdb.log 2>&1 &
-          sleep 60
+          # python -m mindsdb --config config.json > mindsdb.log 2>&1 &
+          # sleep 60
 
           python tests/test_connector.py
 
