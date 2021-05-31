@@ -87,7 +87,6 @@ class ConnectorTest(unittest.TestCase):
             ['python', '-m', 'mindsdb', '--api', 'http', '--config', 'config.json' ],
             stdout=None,
             stderr=None
-            # close_fds=True
         )
         time.sleep(40)
 
@@ -96,8 +95,8 @@ class ConnectorTest(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        requests.delete(f"{CONNECTORS_URL}/{CONNECTOR_NAME}")
         try:
+            requests.delete(f"{CONNECTORS_URL}/{CONNECTOR_NAME}")
             conns = psutil.net_connections()
             pid = [x.pid for x in conns if x.status == 'LISTEN' and x.laddr[1] == 47334 and x.pid is not None]
             if len(pid) > 0:
