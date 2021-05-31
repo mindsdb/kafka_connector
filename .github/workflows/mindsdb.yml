@@ -16,13 +16,18 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.7'
-    - name: Installing mindsdb
+        # - name: Installing mindsdb
+        #   run: |
+        #     pip install mindsdb
+        # - name: Building connector
+        #   run: |
+        #     mvn clean package
+        # - name: Running kafka cluster
+        #   run: |
+        #       docker-compose up -d
+    - name: Set up MINDSDB_HOST environment
       run: |
-        pip install mindsdb
-    - name: Building connector
-      run: |
-        mvn clean package
-    - name: Running kafka cluster
-      run: |
-          docker-compose up -d
+          ifconfig docker0
+          export MINDSDB_HOST=$(ifconfig docker0 | grep 'inet ' | cut -d: -f2 | awk '{print $2}')
+          echo MINDSDB_HOST=$MINDSDB_HOST
         
