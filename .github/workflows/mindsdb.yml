@@ -1,0 +1,45 @@
+name: MindsDB workflow
+
+on:
+  push:
+  pull_request:
+    branches:
+      - stable
+
+jobs:
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.7'
+    - name: Building connector
+      run: |
+        mvn clean package
+    - name: Pulling image for kafka
+      run: |
+          docker-compose pull
+    - name: Installing mindsdb
+      run: |
+        pip install mindsdb
+    - name: Set up environment variables
+      run: |
+          echo "MINDSDB_HOST=$(ifconfig docker0 | grep 'inet ' | cut -d: -f2 | awk '{print $2}')" >> $GITHUB_ENV
+
+    - name: Installing dependencies
+      run: |
+          python -m pip install -r tests/requirements.txt
+
+    - name: Running tests
+      run: |
+          python tests/make_config.py
+          docker-compose up -d
+          python tests/test_connector.py
+      env:
+        CHECK_FOR_UPDATES: False
+
+
+
