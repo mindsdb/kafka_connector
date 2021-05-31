@@ -88,7 +88,8 @@ class ConnectorTest(unittest.TestCase):
             stdout=None,
             stderr=None
         )
-        time.sleep(40)
+        #huge delay to make sure that kafka cluster and mindsdb are set up.
+        time.sleep(120)
 
         upload_ds(DS_NAME)
         train_predictor(DS_NAME, PREDICTOR_NAME)
