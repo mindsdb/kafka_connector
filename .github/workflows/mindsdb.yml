@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  evironment_set_up:
+  tests:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -16,18 +16,30 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.7'
-        # - name: Installing mindsdb
-        #   run: |
-        #     pip install mindsdb
-        # - name: Building connector
-        #   run: |
-        #     mvn clean package
-        # - name: Running kafka cluster
-        #   run: |
-        #       docker-compose up -d
+    - name: Building connector
+      run: |
+        mvn clean package
+    - name: Running kafka cluster
+      run: |
+          docker-compose up -d
+    - name: Installing mindsdb
+      run: |
+        pip install mindsdb
     - name: Set up MINDSDB_HOST environment
       run: |
           ifconfig docker0
           export MINDSDB_HOST=$(ifconfig docker0 | grep 'inet ' | cut -d: -f2 | awk '{print $2}')
           echo MINDSDB_HOST=$MINDSDB_HOST
-        
+    - name: Running Mindsdb
+      run: |
+         
+          python tests/make_config.py
+          cat config.json
+          python -m mindsdb --config config.json
+
+    - name: Running tests
+      run: |
+          python tests/test_connector.py
+
+
+
