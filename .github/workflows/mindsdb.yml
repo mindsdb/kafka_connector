@@ -19,9 +19,9 @@ jobs:
     - name: Building connector
       run: |
         mvn clean package
-    - name: Running kafka cluster
+    - name: Pulling image for kafka
       run: |
-          docker-compose up -d
+          docker-compose pull
     - name: Installing mindsdb
       run: |
         pip install mindsdb
@@ -36,6 +36,7 @@ jobs:
     - name: Running tests
       run: |
           python tests/make_config.py
+          docker-compose up -d
           python tests/test_connector.py
       env:
         CHECK_FOR_UPDATES: False
