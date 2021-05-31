@@ -29,13 +29,16 @@ jobs:
       run: |
           ifconfig docker0
           echo "MINDSDB_HOST=$(ifconfig docker0 | grep 'inet ' | cut -d: -f2 | awk '{print $2}')" >> $GITHUB_ENV
-          echo MINDSDB_HOST=$MINDSDB_HOST
+    - name: Installing dependencies
+      run: |
+          python -m pip install -r tests/requirements.txt
     - name: Running Mindsdb
       run: |
          
           python tests/make_config.py
           cat config.json
-          python -m mindsdb --config config.json
+          # python -m mindsdb --config config.json
+          python -m mindsdb --config config.json > mindsdb.log 2>&1 &
 
     - name: Running tests
       run: |
