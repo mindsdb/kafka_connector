@@ -13,7 +13,6 @@ import kafka
 import pandas as pd
 
 
-
 MINDSDB_HOST = os.getenv("MINDSDB_HOST")
 MINDSDB_URL = f"http://{MINDSDB_HOST}:47334"
 HTTP_API_ROOT = f"{MINDSDB_URL}/api"
@@ -35,6 +34,7 @@ PREDICTOR_NAME = "kafka_test_predictor"
 CONNECTOR_NAME = "MindsDBConnector"
 CONNECTORS_URL = "http://127.0.0.1:9021/api/connect/connect-default/connectors"
 
+
 def read_stream(stream_name, buf, stop_event):
     consumer = kafka.KafkaConsumer(**CONNECTION_PARAMS, consumer_timeout_ms=1000)
     consumer.subscribe([stream_name])
@@ -47,14 +47,14 @@ def read_stream(stream_name, buf, stop_event):
     consumer.close()
     print(f"STOPPING READING STREAM {stream_name} THREAD PROPERLY")
 
+
 def upload_ds(name):
-    df = pd.DataFrame({
-            'group': ["A" for _ in range(100, 210)],
-            'order': [x for x in range(100, 210)],
-            'x1': [x for x in range(100,210)],
-            'x2': [x*2 for x in range(100,210)],
-            'y': [x*3 for x in range(100,210)]
-        })
+    df = pd.DataFrame({'group': ["A" for _ in range(100, 210)],
+                       'order': [x for x in range(100, 210)],
+                       'x1': [x for x in range(100, 210)],
+                       'x2': [x * 2 for x in range(100, 210)],
+                       'y': [x * 3 for x in range(100, 210)]
+                       })
     with tempfile.NamedTemporaryFile(mode='w+', newline='', delete=False) as f:
         df.to_csv(f, index=False)
         f.flush()
@@ -65,6 +65,7 @@ def upload_ds(name):
                 "name": (None, name)}
         res = requests.put(url, files=data)
         res.raise_for_status()
+
 
 def train_predictor(ds_name, predictor_name):
     params = {
@@ -79,16 +80,17 @@ def train_predictor(ds_name, predictor_name):
     res = requests.put(url, json=params)
     res.raise_for_status()
 
+
 class ConnectorTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
         cls.sp = Popen(
-            ['python', '-m', 'mindsdb', '--api', 'http', '--config', 'config.json' ],
+            ['python', '-m', 'mindsdb', '--api', 'http', '--config', 'config.json'],
             stdout=None,
             stderr=None
         )
-        #huge delay to make sure that kafka cluster and mindsdb are set up.
+        # huge delay to make sure that kafka cluster and mindsdb are set up.
         time.sleep(120)
 
         upload_ds(DS_NAME)
@@ -107,23 +109,21 @@ class ConnectorTest(unittest.TestCase):
             pass
         time.sleep(40)
 
-
     def test_1_create_mindsdb_stream_via_connector(self):
         print(f'\nExecuting {self._testMethodName}')
 
         params = {"name": CONNECTOR_NAME,
-                  "config": {
-                       "connector.class": "com.mindsdb.kafka.connect.MindsDBConnector",
-                       "topics": STREAM_IN,
-                       "mindsdb.url": MINDSDB_URL,
-                       "kafka.api.host": KAFKA_HOST,
-                       "kafka.api.port": KAFKA_PORT,
-                       "kafka.api.name": INTEGRATION_NAME,
-                       "predictor.name": PREDICTOR_NAME,
-                       "output.forecast.topic": STREAM_OUT,
-                       # "output.anomaly.topic": "covid_out_anomaly"
+                  "config": {"connector.class": "com.mindsdb.kafka.connect.MindsDBConnector",
+                             "topics": STREAM_IN,
+                             "mindsdb.url": MINDSDB_URL,
+                             "kafka.api.host": KAFKA_HOST,
+                             "kafka.api.port": KAFKA_PORT,
+                             "kafka.api.name": INTEGRATION_NAME,
+                             "predictor.name": PREDICTOR_NAME,
+                             "output.forecast.topic": STREAM_OUT,
+                             # "output.anomaly.topic": "covid_out_anomaly"
+                             }
                   }
-                 }
 
         headers = {"Content-Type": "application/json"}
         res = requests.post(CONNECTORS_URL, json=params, headers=headers)
@@ -136,7 +136,6 @@ class ConnectorTest(unittest.TestCase):
         self.assertTrue('integrations' in res.json(), f"Integration set is empty: {res.json()}")
         integrations = res.json()['integrations']
         self.assertTrue(INTEGRATION_NAME in integrations, f"Can't find {INTEGRATION_NAME} in existing: {integrations}")
-
 
     def test_2_making_stream_prediction(self):
         print(f'\nExecuting {self._testMethodName}')
@@ -151,7 +150,7 @@ class ConnectorTest(unittest.TestCase):
         time.sleep(1)
 
         for x in range(1, 3):
-            when_data = {'x1': x, 'x2': 2*x}
+            when_data = {'x1': x, 'x2': 2 * x}
             to_send = json.dumps(when_data)
             producer.send(STREAM_IN, to_send.encode("utf-8"))
         producer.close()
@@ -159,7 +158,7 @@ class ConnectorTest(unittest.TestCase):
         while len(predictions) != 2 and time.time() < threshold:
             time.sleep(1)
         stop_event.set()
-        self.assertTrue(len(predictions)==2, f"expected 2 predictions but got {len(predictions)}")
+        self.assertTrue(len(predictions) == 2, f"expected 2 predictions but got {len(predictions)}")
 
 
 if __name__ == "__main__":
