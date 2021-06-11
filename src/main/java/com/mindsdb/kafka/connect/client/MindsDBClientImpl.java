@@ -19,6 +19,7 @@ public class MindsDBClientImpl implements MindsDBClient {
 
     private final HttpClient httpClient;
     private final MindsDBClientConfig clientConfig;
+    public static final String CONNECTION_ERROR = "Failed to send request to MindsDB server";
 
     MindsDBClientImpl(HttpClient httpClient, MindsDBClientConfig clientConfig) {
         this.clientConfig = clientConfig;
@@ -67,8 +68,11 @@ public class MindsDBClientImpl implements MindsDBClient {
             }
 
             return OBJECT_MAPPER.readValue(response.body(), clazz);
-        } catch (IOException | URISyntaxException | InterruptedException e) {
-            throw new ConnectException("Failed to send request to MindsDB server", e);
+        } catch (IOException | URISyntaxException e) {
+            throw new ConnectException(CONNECTION_ERROR, e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new ConnectException(CONNECTION_ERROR, e);
         }
     }
 
@@ -88,8 +92,11 @@ public class MindsDBClientImpl implements MindsDBClient {
             if (response.statusCode() > 300) {
                 throw new MindsDBApiException(httpRequest, response);
             }
-        } catch (IOException | URISyntaxException | InterruptedException e) {
-            throw new ConnectException("Failed to send request to MindsDB server", e);
+        } catch (IOException | URISyntaxException e) {
+            throw new ConnectException(CONNECTION_ERROR, e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new ConnectException(CONNECTION_ERROR, e);
         }
     }
 }

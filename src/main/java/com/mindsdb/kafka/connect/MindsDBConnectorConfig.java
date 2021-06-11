@@ -3,7 +3,6 @@ package com.mindsdb.kafka.connect;
 import org.apache.kafka.common.config.AbstractConfig;
 import org.apache.kafka.common.config.ConfigDef;
 
-import java.util.Arrays;
 import java.util.Map;
 import static org.apache.kafka.common.config.ConfigDef.Importance;
 import static org.apache.kafka.common.config.ConfigDef.Type;
@@ -11,7 +10,7 @@ import static org.apache.kafka.common.config.ConfigDef.Type;
 public class MindsDBConnectorConfig extends AbstractConfig {
     private static final String MINDS_DB_URL = "mindsdb.url";
     private static final String MINDS_DB_USER = "mindsdb.user";
-    private static final String MINDS_DB_PASSWORD = "mindsdb.password";
+    private static final String MINDS_DB_PASSWORD = getDefaultPassword();
     private static final String KAFKA_HOST = "kafka.api.host";
     private static final String KAFKA_PORT = "kafka.api.port";
     private static final String KAFKA_AUTH_KEY = "kafka.api.key";
@@ -22,6 +21,10 @@ public class MindsDBConnectorConfig extends AbstractConfig {
     private static final String TOPICS = "topics";
     private static final String FORECAST_TOPIC = "output.forecast.topic";
     private static final String ANOMALY_TOPIC = "output.anomaly.topic";
+
+    private static String getDefaultPassword() {
+        return "mindsdb.password";
+    }
 
     public static final ConfigDef CONFIG_DEF = new ConfigDef()
             .define(MINDS_DB_URL, Type.STRING, Importance.HIGH, "Root url for mindsdb's http interface")
