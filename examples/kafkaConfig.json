@@ -1,0 +1,19 @@
+{
+  "name": "MindsDBConnectorConnector_0",
+  "config": {
+    "connector.class": "com.mindsdb.kafka.connect.MindsDBConnector",
+    "value.converter": "io.confluent.connect.avro.AvroConverter",
+    "errors.tolerance": "all",
+    "errors.log.enable": "true",
+    "errors.log.include.messages": "true",
+    "topics": "myTopic",
+    "mindsdb.url": "http://mindsdb-server:47334",
+    "kafka.api.host": "http://broker",
+    "kafka.api.port": "9092",
+    "kafka.api.name": "kafkaMindsTest",
+    "predictor.name": "testPredictor",
+    "output.forecast.topic": "topito",
+    "output.anomaly.topic": "topitoErr",
+    "value.converter.schema.registry.url": "http://schema-registry:8081"
+  }
+}

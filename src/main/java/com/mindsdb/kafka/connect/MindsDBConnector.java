@@ -13,15 +13,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MindsDBSinkConnector extends SinkConnector {
-    private static final Logger LOG = LoggerFactory.getLogger(MindsDBSinkConnector.class);
+public class MindsDBConnector extends SinkConnector {
+    private static final Logger LOG = LoggerFactory.getLogger(MindsDBConnector.class);
 
-    private MindsDBSinkConnectorConfig configProperties;
+    private MindsDBConnectorConfig configProperties;
 
     @Override
     public void start(Map<String, String> map) {
         try {
-            configProperties = new MindsDBSinkConnectorConfig(map);
+            configProperties = new MindsDBConnectorConfig(map);
             MindsDBClient mindsDBClient = MindsDBClient.getInstance(configProperties);
             mindsDBClient.createIntegration();
             mindsDBClient.createStream();
@@ -52,7 +52,7 @@ public class MindsDBSinkConnector extends SinkConnector {
 
     @Override
     public ConfigDef config() {
-        return MindsDBSinkConnectorConfig.CONFIG_DEF;
+        return MindsDBConnectorConfig.CONFIG_DEF;
     }
 
     @Override
