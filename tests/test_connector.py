@@ -113,7 +113,7 @@ class ConnectorTest(unittest.TestCase):
 
         params = {"name": CONNECTOR_NAME,
                   "config": {
-                       "connector.class": "com.mindsdb.kafka.connect.MindsDBSinkConnector",
+                       "connector.class": "com.mindsdb.kafka.connect.MindsDBConnector",
                        "topics": STREAM_IN,
                        "mindsdb.url": MINDSDB_URL,
                        "kafka.api.host": KAFKA_HOST,
