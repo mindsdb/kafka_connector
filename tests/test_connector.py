@@ -122,6 +122,10 @@ class ConnectorTest(unittest.TestCase):
                              "predictor.name": PREDICTOR_NAME,
                              "output.forecast.topic": STREAM_OUT,
                              # "output.anomaly.topic": "covid_out_anomaly"
+                             "security.protocol": "SASL_PLAINTEXT",
+                             "sasl.mechanism": "PLAIN",
+                             "sasl.plain.username": "admin",
+                             "sasl.plain.password": "admin-secret",
                              }
                   }
 
