@@ -26,6 +26,8 @@ public class MindsDBConnectorConfig extends AbstractConfig {
     private static final String SASL_PLAIN_USERNAME = "sasl.plain.username";
     private static final String SASL_PLAIN_PASSWORD = "sasl.plain.password";
 
+    private static final ConfigDef.Validator VALID_SECURITY_PROTOCOLS = ConfigDef.ValidString.in("PLAINTEXT", "SSL", "SASL_PLAINTEXT", "SASL_SSL");
+    private static final ConfigDef.Validator VALID_SASL_MECHANISMS = ConfigDef.ValidString.in("PLAIN", "GSSAPI", "OAUTHBEARER", "SCRAM-SHA-256", "SCRAM-SHA-512", null);
 
     public static final ConfigDef CONFIG_DEF = new ConfigDef()
             .define(MINDS_DB_URL, Type.STRING, Importance.HIGH, "Root url for mindsdb's http interface")
@@ -41,8 +43,8 @@ public class MindsDBConnectorConfig extends AbstractConfig {
             .define(TOPICS, Type.STRING, Importance.HIGH, "Topic the predictor should listen to")
             .define(FORECAST_TOPIC, Type.STRING, Importance.HIGH, "Topic the predictor should put predictions in")
             .define(ANOMALY_TOPIC, Type.STRING, null, Importance.LOW, "Topic the predictor should put anomaly detection warnings in")
-            .define(SECURITY_PROTOCOL, Type.STRING, "PLAINTEXT", Importance.LOW, "Protocol used to communicate with brokers. Valid values are: PLAINTEXT, SSL, SASL_PLAINTEXT, SASL_SSL. Default: PLAINTEXT.")
-            .define(SASL_MECHANISM, Type.STRING, null, Importance.LOW, "Authentication mechanism when security_protocol is configured for SASL_PLAINTEXT or SASL_SSL. Valid values are: PLAIN, GSSAPI, OAUTHBEARER, SCRAM-SHA-256, SCRAM-SHA-512.")
+            .define(SECURITY_PROTOCOL, Type.STRING, "PLAINTEXT", VALID_SECURITY_PROTOCOLS, Importance.LOW, "Protocol used to communicate with brokers. Valid values are: PLAINTEXT, SSL, SASL_PLAINTEXT, SASL_SSL. Default: PLAINTEXT.")
+            .define(SASL_MECHANISM, Type.STRING, null, VALID_SASL_MECHANISMS, Importance.LOW, "Authentication mechanism when security_protocol is configured for SASL_PLAINTEXT or SASL_SSL. Valid values are: PLAIN, GSSAPI, OAUTHBEARER, SCRAM-SHA-256, SCRAM-SHA-512.")
             .define(SASL_PLAIN_USERNAME, Type.STRING, null, Importance.LOW, "username for sasl PLAIN and SCRAM authentication. Required if sasl_mechanism is PLAIN or one of the SCRAM mechanisms.")
             .define(SASL_PLAIN_PASSWORD, Type.STRING, null, Importance.LOW, "password for sasl PLAIN and SCRAM authentication. Required if sasl_mechanism is PLAIN or one of the SCRAM mechanisms.");
 

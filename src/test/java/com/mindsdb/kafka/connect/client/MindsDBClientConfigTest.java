@@ -38,12 +38,15 @@ class MindsDBClientConfigTest {
         when(connectorConfig.getKafkaHost()).thenReturn("fakeKafkaHost");
         when(connectorConfig.getKafkaPort()).thenReturn("0000");
         when(connectorConfig.getSecurityProtocol()).thenReturn("PLAINTEXT");
+        when(connectorConfig.getSaslMechanism()).thenReturn("SASL_PLAINTEXT");
+        when(connectorConfig.getUsername()).thenReturn("fakeUsername");
+        when(connectorConfig.getPassword()).thenReturn("fakePassword");
 
         Map<String, Object> connection = Map.of(
                 "security_protocol", "PLAINTEXT",
-                "sasl_mechanism", "null",
-                "sasl_plain_username", "null",
-                "sasl_plain_password", "null",
+                "sasl_mechanism", "SASL_PLAINTEXT",
+                "sasl_plain_username", "fakeUsername",
+                "sasl_plain_password", "fakePassword",
                 "bootstrap_servers", "fakeKafkaHost:0000"
                 );
 
