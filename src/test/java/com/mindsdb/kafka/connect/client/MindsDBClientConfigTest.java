@@ -41,13 +41,15 @@ class MindsDBClientConfigTest {
         when(connectorConfig.getSaslMechanism()).thenReturn("null");
         when(connectorConfig.getUsername()).thenReturn("null");
         when(connectorConfig.getPassword()).thenReturn("null");
+        when(connectorConfig.getKafkaAuthSecret()).thenReturn("null");
 
         Map<String, String> connection = Map.of(
                 "security_protocol", "PLAINTEXT",
                 "sasl_mechanism", "null",
                 "sasl_plain_username", "null",
                 "sasl_plain_password", "null",
-                "bootstrap_servers", "fakeKafkaHost:0000"
+                "bootstrap_servers", "fakeKafkaHost:0000",
+                "sasl_oauth_token_provider", "null"
         );
 
         Map<String, Object> expectedParams = Map.of(
