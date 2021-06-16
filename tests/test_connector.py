@@ -23,7 +23,7 @@ KAFKA_PORT = 9092
 KAFKA_HOST = "127.0.0.1"
 
 CONNECTION_PARAMS = {"bootstrap_servers": [f"{KAFKA_HOST}:{KAFKA_PORT}"],
-        "security_protocol": "SASL_PAINTEXT",
+        "security_protocol": "SASL_PLAINTEXT",
         "sasl_mechanism": "PLAIN",
         "sasl_plain_username": "admin",
         "sasl_plain_password": "admin-secret"}
