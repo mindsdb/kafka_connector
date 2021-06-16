@@ -22,7 +22,12 @@ INTEGRATION_NAME = 'test_kafka'
 KAFKA_PORT = 9092
 KAFKA_HOST = "127.0.0.1"
 
-CONNECTION_PARAMS = {"bootstrap_servers": [f"{KAFKA_HOST}:{KAFKA_PORT}"]}
+CONNECTION_PARAMS = {"bootstrap_servers": [f"{KAFKA_HOST}:{KAFKA_PORT}"],
+        "security_protocol": "SASL_PLAINTEXT",
+        "sasl_mechanism": "PLAIN",
+        "sasl_plain_username": "admin",
+        "sasl_plain_password": "admin-secret"}
+
 STREAM_SUFFIX = uuid.uuid4()
 STREAM_IN = f"test_stream_in_{STREAM_SUFFIX}"
 STREAM_OUT = f"test_stream_out_{STREAM_SUFFIX}"
@@ -122,6 +127,10 @@ class ConnectorTest(unittest.TestCase):
                              "predictor.name": PREDICTOR_NAME,
                              "output.forecast.topic": STREAM_OUT,
                              # "output.anomaly.topic": "covid_out_anomaly"
+                             "security.protocol": "SASL_PLAINTEXT",
+                             "sasl.mechanism": "PLAIN",
+                             "sasl.plain.username": "admin",
+                             "sasl.plain.password": "admin-secret",
                              }
                   }
 
