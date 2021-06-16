@@ -27,7 +27,7 @@ public class MindsDBClientConfig {
 
     public Map<String, Object> integrationCreationRequest() {
         HashMap<String, Object> parameters = new HashMap<>();
-        HashMap<String, Object> connection = new HashMap<>();
+        HashMap<String, String> connection = new HashMap<>();
 
         connection.put("security_protocol", config.getSecurityProtocol());
         connection.put("sasl_mechanism", config.getSaslMechanism());
@@ -35,16 +35,6 @@ public class MindsDBClientConfig {
         connection.put("sasl_plain_password", config.getPassword());
         connection.put("bootstrap_servers", config.getKafkaHost() + ":" + config.getKafkaPort());
 
-
-        // Need also add checks for 'sasl_mechanism' and 'security_protocol' because
-        // next two params depend on them
-        // see https://kafka-python.readthedocs.io/en/master/apidoc/KafkaClient.html for details
-
-        // connection.put("sasl_plain_username", config.getKafkaAuthKey());
-        // connection.put("sasl_plain_password", config.getKafkaAuthSecret());
-        // parameters.put("connection", Collections.singletonMap(
-        //         "bootstrap_servers", config.getKafkaHost() + ":" + config.getKafkaPort()
-        // ));
         parameters.put("connection", connection);
         parameters.put("type", "kafka");
         parameters.put("enabled", true);

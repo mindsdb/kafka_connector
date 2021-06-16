@@ -38,14 +38,17 @@ class MindsDBClientConfigTest {
         when(connectorConfig.getKafkaHost()).thenReturn("fakeKafkaHost");
         when(connectorConfig.getKafkaPort()).thenReturn("0000");
         when(connectorConfig.getSecurityProtocol()).thenReturn("PLAINTEXT");
+        when(connectorConfig.getSaslMechanism()).thenReturn("null");
+        when(connectorConfig.getUsername()).thenReturn("null");
+        when(connectorConfig.getPassword()).thenReturn("null");
 
-        Map<String, Object> connection = Map.of(
+        Map<String, String> connection = Map.of(
                 "security_protocol", "PLAINTEXT",
                 "sasl_mechanism", "null",
                 "sasl_plain_username", "null",
                 "sasl_plain_password", "null",
                 "bootstrap_servers", "fakeKafkaHost:0000"
-                );
+        );
 
         Map<String, Object> expectedParams = Map.of(
                 "connection", connection,
@@ -54,9 +57,7 @@ class MindsDBClientConfigTest {
         );
 
         @SuppressWarnings("unchecked")
-        Map<String, Object> result = (Map<String, Object>) clientConfig.integrationCreationRequest()
-                .get("params");
-
+        Map<String, Object> result = (Map<String, Object>) clientConfig.integrationCreationRequest().get("params");
         assertEquals(expectedParams, result);
     }
 
