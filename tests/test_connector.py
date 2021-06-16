@@ -22,7 +22,12 @@ INTEGRATION_NAME = 'test_kafka'
 KAFKA_PORT = 9092
 KAFKA_HOST = "127.0.0.1"
 
-CONNECTION_PARAMS = {"bootstrap_servers": [f"{KAFKA_HOST}:{KAFKA_PORT}"]}
+CONNECTION_PARAMS = {"bootstrap_servers": [f"{KAFKA_HOST}:{KAFKA_PORT}"],
+        "security_protocol": "SASL_PAINTEXT",
+        "sasl_mechanism": "PLAIN",
+        "sasl_plain_username": "admin",
+        "sasl_plain_password": "admin-secret"}
+
 STREAM_SUFFIX = uuid.uuid4()
 STREAM_IN = f"test_stream_in_{STREAM_SUFFIX}"
 STREAM_OUT = f"test_stream_out_{STREAM_SUFFIX}"
