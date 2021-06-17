@@ -34,6 +34,7 @@ public class MindsDBClientConfig {
         connection.put("sasl_plain_username", config.getUsername());
         connection.put("sasl_plain_password", config.getPassword());
         connection.put("bootstrap_servers", config.getKafkaHost() + ":" + config.getKafkaPort());
+        connection.put("sasl_oauth_token_provider", config.getKafkaAuthSecret());
 
         parameters.put("connection", connection);
         parameters.put("type", "kafka");
