@@ -15,6 +15,7 @@ public class MindsDBConnectorConfig extends AbstractConfig {
     private static final String KAFKA_PORT = "kafka.api.port";
     private static final String KAFKA_AUTH_SECRET = "kafka.api.secret";
     private static final String API_NAME = "kafka.api.name";
+    private static final String GROUP_ID = "kafka.group.id";
     private static final String PREDICTOR_NAME = "predictor.name";
     private static final String PREDICTOR_TYPE = "predictor.type";
     private static final String TOPICS = "topics";
@@ -33,6 +34,7 @@ public class MindsDBConnectorConfig extends AbstractConfig {
             .define(KAFKA_HOST, Type.STRING, Importance.HIGH, "The kafka_host on which kafka is running")
             .define(KAFKA_PORT, Type.STRING, Importance.HIGH, "The port on which kafka is running")
             .define(API_NAME, Type.STRING, Importance.HIGH, "Name of your kafka integration")
+            .define(GROUP_ID, Type.STRING, null, Importance.HIGH, "The name of the consumer group to join for dynamic partition assignment (if enabled), and to use for fetching and committing offsets.")
             .define(PREDICTOR_NAME, Type.STRING, Importance.HIGH, "Name of the predictor you want to integrate with")
             .define(PREDICTOR_TYPE, Type.STRING, "default", ConfigDef.ValidString.in("default", "timeseries"), Importance.HIGH, "Type of the predictor, either default or timeseries")
             .define(TOPICS, Type.STRING, Importance.HIGH, "Topic the predictor should listen to")
@@ -74,6 +76,10 @@ public class MindsDBConnectorConfig extends AbstractConfig {
 
     public String getApiName() {
         return getString(API_NAME);
+    }
+
+    public String getGroupID() {
+        return getString(GROUP_ID);
     }
 
     public String getPredictorName() {

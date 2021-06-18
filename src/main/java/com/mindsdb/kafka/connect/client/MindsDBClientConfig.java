@@ -40,6 +40,11 @@ public class MindsDBClientConfig {
         parameters.put("type", "kafka");
         parameters.put("enabled", true);
 
+        if (config.getGroupID() != null) {
+            Map<String, Object> advanced = Collections.singletonMap("consumer", Collections.singletonMap("group_id", config.getGroupID()));
+            parameters.put("advanced", advanced);
+        }
+
         return Collections.singletonMap("params", parameters);
     }
 
