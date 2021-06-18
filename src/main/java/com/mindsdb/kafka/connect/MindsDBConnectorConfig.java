@@ -10,7 +10,7 @@ import static org.apache.kafka.common.config.ConfigDef.Type;
 public class MindsDBConnectorConfig extends AbstractConfig {
     private static final String MINDS_DB_URL = "mindsdb.url";
     private static final String MINDS_DB_USER = "mindsdb.user";
-    private static final String MINDS_DB_PASSWORD = "mindsdb.password";
+    private static final String MINDS_DB_PASSWORD = getMindsDBPasswordFieldName();
     private static final String KAFKA_HOST = "kafka.api.host";
     private static final String KAFKA_PORT = "kafka.api.port";
     private static final String KAFKA_AUTH_SECRET = "kafka.api.secret";
@@ -24,8 +24,18 @@ public class MindsDBConnectorConfig extends AbstractConfig {
     private static final String SECURITY_PROTOCOL = "security.protocol";
     private static final String SASL_MECHANISM = "sasl.mechanism";
     private static final String SASL_PLAIN_USERNAME = "sasl.plain.username";
-    private static final String SASL_PLAIN_PASSWORD = "sasl.plain.password";
+    private static final String SASL_PLAIN_PASSWORD = getKafkaUserPasswordFieldName();
 
+
+    private static String getMindsDBPasswordFieldName() {
+        return "mindsdb.password";
+
+    }
+
+    private static String getKafkaUserPasswordFieldName() {
+        return "sasl.plain.password";
+
+    }
 
     public static final ConfigDef CONFIG_DEF = new ConfigDef()
             .define(MINDS_DB_URL, Type.STRING, Importance.HIGH, "Root url for mindsdb's http interface")
