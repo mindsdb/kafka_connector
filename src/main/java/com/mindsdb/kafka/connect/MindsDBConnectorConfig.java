@@ -10,11 +10,12 @@ import static org.apache.kafka.common.config.ConfigDef.Type;
 public class MindsDBConnectorConfig extends AbstractConfig {
     private static final String MINDS_DB_URL = "mindsdb.url";
     private static final String MINDS_DB_USER = "mindsdb.user";
-    private static final String MINDS_DB_PASSWORD = "mindsdb.password";
+    private static final String MINDS_DB_PASSWORD = getMindsDBPasswordFieldName();
     private static final String KAFKA_HOST = "kafka.api.host";
     private static final String KAFKA_PORT = "kafka.api.port";
     private static final String KAFKA_AUTH_SECRET = "kafka.api.secret";
     private static final String API_NAME = "kafka.api.name";
+    private static final String GROUP_ID = "kafka.group.id";
     private static final String PREDICTOR_NAME = "predictor.name";
     private static final String PREDICTOR_TYPE = "predictor.type";
     private static final String TOPICS = "topics";
@@ -23,8 +24,18 @@ public class MindsDBConnectorConfig extends AbstractConfig {
     private static final String SECURITY_PROTOCOL = "security.protocol";
     private static final String SASL_MECHANISM = "sasl.mechanism";
     private static final String SASL_PLAIN_USERNAME = "sasl.plain.username";
-    private static final String SASL_PLAIN_PASSWORD = "sasl.plain.password";
+    private static final String SASL_PLAIN_PASSWORD = getKafkaUserPasswordFieldName();
 
+
+    private static String getMindsDBPasswordFieldName() {
+        return "mindsdb.password";
+
+    }
+
+    private static String getKafkaUserPasswordFieldName() {
+        return "sasl.plain.password";
+
+    }
 
     public static final ConfigDef CONFIG_DEF = new ConfigDef()
             .define(MINDS_DB_URL, Type.STRING, Importance.HIGH, "Root url for mindsdb's http interface")
@@ -33,6 +44,7 @@ public class MindsDBConnectorConfig extends AbstractConfig {
             .define(KAFKA_HOST, Type.STRING, Importance.HIGH, "The kafka_host on which kafka is running")
             .define(KAFKA_PORT, Type.STRING, Importance.HIGH, "The port on which kafka is running")
             .define(API_NAME, Type.STRING, Importance.HIGH, "Name of your kafka integration")
+            .define(GROUP_ID, Type.STRING, null, Importance.HIGH, "The name of the consumer group to join for dynamic partition assignment (if enabled), and to use for fetching and committing offsets.")
             .define(PREDICTOR_NAME, Type.STRING, Importance.HIGH, "Name of the predictor you want to integrate with")
             .define(PREDICTOR_TYPE, Type.STRING, "default", ConfigDef.ValidString.in("default", "timeseries"), Importance.HIGH, "Type of the predictor, either default or timeseries")
             .define(TOPICS, Type.STRING, Importance.HIGH, "Topic the predictor should listen to")
@@ -74,6 +86,10 @@ public class MindsDBConnectorConfig extends AbstractConfig {
 
     public String getApiName() {
         return getString(API_NAME);
+    }
+
+    public String getGroupID() {
+        return getString(GROUP_ID);
     }
 
     public String getPredictorName() {
