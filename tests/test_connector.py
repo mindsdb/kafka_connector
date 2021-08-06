@@ -13,7 +13,7 @@ import kafka
 import pandas as pd
 
 
-MINDSDB_HOST = os.getenv("MINDSDB_HOST")
+MINDSDB_HOST = os.getenv("MINDSDB_HOST", "172.17.0.1")
 MINDSDB_URL = f"http://{MINDSDB_HOST}:47334"
 HTTP_API_ROOT = f"{MINDSDB_URL}/api"
 
