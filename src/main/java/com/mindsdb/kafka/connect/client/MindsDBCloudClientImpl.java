@@ -28,6 +28,40 @@ public class MindsDBCloudClientImpl implements MindsDBClient {
         this.httpClient = httpClient;
         this.clientConfig = clientConfig;
 
+        this.cloudLogin();
+    }
+
+    @Override
+    public void createIntegration() { }
+
+    @Override
+    public void createStream() throws MindsDBApiException {
+        try {
+            postToMindsDb(
+                    clientConfig.streamCreationUri(),
+                    clientConfig.cloudStreamRequest()
+            );
+        } catch (MindsDBApiException e) {
+            cloudLogin();
+
+            postToMindsDb(
+                    clientConfig.streamCreationUri(),
+                    clientConfig.cloudStreamRequest()
+            );
+        }
+    }
+
+    @Override
+    public List<String> getPredictorColumns() throws MindsDBApiException {
+        try {
+            return fetchPredictorData();
+        } catch (MindsDBApiException e) {
+            cloudLogin();
+            return fetchPredictorData();
+        }
+    }
+
+    private void cloudLogin() {
         try {
             postToMindsDb(
                     "/cloud/login",
@@ -38,19 +72,7 @@ public class MindsDBCloudClientImpl implements MindsDBClient {
         }
     }
 
-    @Override
-    public void createIntegration() { }
-
-    @Override
-    public void createStream() throws MindsDBApiException {
-        postToMindsDb(
-                clientConfig.streamCreationUri(),
-                clientConfig.cloudStreamRequest()
-        );
-    }
-
-    @Override
-    public List<String> getPredictorColumns() throws MindsDBApiException {
+    private List<String> fetchPredictorData() throws MindsDBApiException {
         Predictor predictor = getFromMindsDB(clientConfig.predictorUri(), Predictor.class);
         return Optional
                 .ofNullable(predictor)
