@@ -58,7 +58,7 @@ public class MindsDBClientConfig {
         parameters.put("stream_in", config.getTopics());
         parameters.put("stream_out", config.getForecastTopic());
         parameters.put("stream_anomaly", config.getAnomalyTopic());
-        parameters.put("integration_name", config.getApiName());
+        parameters.put("integration", config.getApiName());
         parameters.put("type", config.getPredictorType());
 
         return Collections.singletonMap("params", parameters);

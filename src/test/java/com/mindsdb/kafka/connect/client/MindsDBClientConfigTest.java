@@ -124,7 +124,7 @@ class MindsDBClientConfigTest {
                         "stream_in", "testTopic",
                         "stream_out", "exitTopic",
                         "stream_anomaly", "anomalyTopic",
-                        "integration_name", "testApi",
+                        "integration", "testApi",
                         "type", "testType"
                 ),
                 result
