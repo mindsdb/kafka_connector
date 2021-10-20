@@ -50,7 +50,7 @@ public class MindsDBClientConfig {
         parameters.put("stream_in", config.getTopics());
         parameters.put("stream_out", config.getForecastTopic());
         parameters.put("stream_anomaly", config.getAnomalyTopic());
-        parameters.put("integration_name", config.getApiName());
+        parameters.put("integration", config.getApiName());
         parameters.put("type", config.getPredictorType());
 
         return Collections.singletonMap("params", parameters);
@@ -69,10 +69,10 @@ public class MindsDBClientConfig {
     }
 
     public Map<String, Object> cloudLoginBody() {
-        return Map.of(
-                "email", config.getUsername(),
-                "password", config.getPassword()
-        );
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("email", config.getMindsDbUser());
+        body.put("password", config.getMindsDbPassword());
+        return body;
     }
 
     private Map<String, String> connectionObject() {

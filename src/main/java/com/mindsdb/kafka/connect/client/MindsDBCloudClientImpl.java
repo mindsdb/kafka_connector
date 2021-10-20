@@ -63,10 +63,20 @@ public class MindsDBCloudClientImpl implements MindsDBClient {
 
     private void cloudLogin() {
         try {
-            postToMindsDb(
-                    "/cloud/login",
-                    this.clientConfig.cloudLoginBody()
-            );
+            String jsonRequest = OBJECT_MAPPER.writeValueAsString(this.clientConfig.cloudLoginBody());
+            URI uri = new URI(clientConfig.baseUrl() + "/cloud/login");
+
+            HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .uri(uri)
+                    .header("Content-Type", "application/json")
+                    .timeout(Duration.of(10, ChronoUnit.SECONDS))
+                    .POST(HttpRequest.BodyPublishers.ofString(jsonRequest))
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() > 300) {
+                throw new MindsDBApiException(httpRequest, response);
+            }
         } catch (Exception e) {
             throw new ConnectException("Failed to authenticate to cloud with the provided user/password", e);
         }
@@ -113,7 +123,7 @@ public class MindsDBCloudClientImpl implements MindsDBClient {
             HttpRequest httpRequest = HttpRequest.newBuilder()
                     .uri(uri)
                     .header("Content-Type", "application/json")
-                    .timeout(Duration.of(5, ChronoUnit.SECONDS))
+                    .timeout(Duration.of(15, ChronoUnit.SECONDS))
                     .PUT(HttpRequest.BodyPublishers.ofString(jsonRequest))
                     .build();
 
