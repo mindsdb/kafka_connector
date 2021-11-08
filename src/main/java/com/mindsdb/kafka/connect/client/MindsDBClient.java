@@ -2,8 +2,8 @@ package com.mindsdb.kafka.connect.client;
 
 import com.mindsdb.kafka.connect.MindsDBConnectorConfig;
 
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.net.http.HttpClient;
 import java.util.List;
 
@@ -14,21 +14,18 @@ public interface MindsDBClient {
 
     static MindsDBClient getInstance(MindsDBConnectorConfig config) {
         HttpClient.Builder clientBuilder = HttpClient.newBuilder();
+        MindsDBClientConfig clientConfig = new MindsDBClientConfig(config);
 
         if (isValidString(config.getMindsDbUser()) && isValidString(config.getMindsDbPassword())) {
-            clientBuilder.authenticator(
-                    new Authenticator() {
-                        @Override
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(
-                                    config.getMindsDbUser(),
-                                    config.getMindsDbPassword().toCharArray()
-                            );
-                        }
-                    }
-            );
+            CookieManager cookieManager = new CookieManager();
+            cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+
+            clientBuilder.cookieHandler(cookieManager);
+
+            return new MindsDBCloudClientImpl(clientBuilder.build(), clientConfig);
         }
-        return new MindsDBClientImpl(clientBuilder.build(), new MindsDBClientConfig(config));
+
+        return new MindsDBClientImpl(clientBuilder.build(), clientConfig);
     }
 
     private static boolean isValidString(String s) {

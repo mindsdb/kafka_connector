@@ -27,16 +27,8 @@ public class MindsDBClientConfig {
 
     public Map<String, Object> integrationCreationRequest() {
         HashMap<String, Object> parameters = new HashMap<>();
-        HashMap<String, String> connection = new HashMap<>();
 
-        connection.put("security_protocol", config.getSecurityProtocol());
-        connection.put("sasl_mechanism", config.getSaslMechanism());
-        connection.put("sasl_plain_username", config.getUsername());
-        connection.put("sasl_plain_password", config.getPassword());
-        connection.put("bootstrap_servers", config.getKafkaHost() + ":" + config.getKafkaPort());
-        connection.put("sasl_oauth_token_provider", config.getKafkaAuthSecret());
-
-        parameters.put("connection", connection);
+        parameters.put("connection", connectionObject());
         parameters.put("type", "kafka");
         parameters.put("enabled", true);
 
@@ -62,5 +54,37 @@ public class MindsDBClientConfig {
         parameters.put("type", config.getPredictorType());
 
         return Collections.singletonMap("params", parameters);
+    }
+
+    public Map<String, Object> cloudStreamRequest() {
+        HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("predictor", config.getPredictorName());
+        parameters.put("stream_in", config.getTopics());
+        parameters.put("stream_out", config.getForecastTopic());
+        parameters.put("stream_anomaly", config.getAnomalyTopic());
+        parameters.put("type", config.getPredictorType());
+        parameters.put("connection", connectionObject());
+
+        return Collections.singletonMap("params", parameters);
+    }
+
+    public Map<String, Object> cloudLoginBody() {
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("email", config.getMindsDbUser());
+        body.put("password", config.getMindsDbPassword());
+        return body;
+    }
+
+    private Map<String, String> connectionObject() {
+        HashMap<String, String> connection = new HashMap<>();
+
+        connection.put("security_protocol", config.getSecurityProtocol());
+        connection.put("sasl_mechanism", config.getSaslMechanism());
+        connection.put("sasl_plain_username", config.getUsername());
+        connection.put("sasl_plain_password", config.getPassword());
+        connection.put("bootstrap_servers", config.getKafkaHost() + ":" + config.getKafkaPort());
+        connection.put("sasl_oauth_token_provider", config.getKafkaAuthSecret());
+
+        return connection;
     }
 }
