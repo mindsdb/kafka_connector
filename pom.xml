@@ -124,6 +124,13 @@
                             <ownerUrl>https://mindsdb.com/</ownerUrl>
                             <ownerLogo>logos/mindsdb.png</ownerLogo>
 
+                            <dockerName>${name}</dockerName>
+                            <dockerNamespace>mindsdb</dockerNamespace>
+                            <dockerTag>${version}</dockerTag>
+                            <dockerRegistries>
+                                <dockerRegistry>hub.docker.io</dockerRegistry>
+                            </dockerRegistries>
+
                             <componentTypes>
                                 <componentType>sink</componentType>
                             </componentTypes>

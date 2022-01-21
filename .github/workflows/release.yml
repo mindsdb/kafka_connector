@@ -16,5 +16,5 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         tags: "latest"
-        repository: mindsdb/kafka_connector
+        repository: mindsdb/mindsdb-kafka-connector
         tag_with_ref: true
