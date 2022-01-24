@@ -1,0 +1,23 @@
+{
+  "name": "MindsDBConnectorConnector_0",
+  "config": 
+  {
+      "connector.class": "com.mindsdb.kafka.connect.MindsDBConnector",
+      "value.converter": "io.confluent.connect.avro.AvroConverter",
+      "errors.tolerance": "all",
+      "errors.log.enable": "true",
+      "errors.log.include.messages": "true",
+      "topics": "InputDataTopic",
+      "mindsdb.url": "http://mindsdb-server:mindsdb-port",
+      "kafka.api.host": "kafka_host",
+      "kafka.api.port": "kafka_port",
+      "kafka.api.name": "MindsDbIntegrationName",
+      "predictor.name": "predictorName",
+      "output.forecast.topic": "OutputDataTopic",
+      "output.anomaly.topic": "AnomalyOutputDataTopic",
+      "security.protocol": "SASL_PLAINTEXT",
+      "sasl.mechanism": "PLAIN",
+      "sasl.plain.username": "kafkauser",
+      "sasl.plain.password": "kafkapassword"
+  }
+}

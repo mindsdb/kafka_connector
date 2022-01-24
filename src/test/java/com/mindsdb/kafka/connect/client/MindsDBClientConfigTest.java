@@ -111,7 +111,6 @@ class MindsDBClientConfigTest {
         when(connectorConfig.getForecastTopic()).thenReturn("exitTopic");
         when(connectorConfig.getAnomalyTopic()).thenReturn("anomalyTopic");
         when(connectorConfig.getApiName()).thenReturn("testApi");
-        when(connectorConfig.getPredictorType()).thenReturn("testType");
 
 
         @SuppressWarnings("unchecked")
@@ -124,8 +123,7 @@ class MindsDBClientConfigTest {
                         "stream_in", "testTopic",
                         "stream_out", "exitTopic",
                         "stream_anomaly", "anomalyTopic",
-                        "integration", "testApi",
-                        "type", "testType"
+                        "integration", "testApi"
                 ),
                 result
         );
