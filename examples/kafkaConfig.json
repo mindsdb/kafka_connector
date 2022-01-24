@@ -1,19 +1,20 @@
 {
-  "name": "MindsDBConnectorConnector_0",
+  "name": "MindsDBConnectorConnector_1",
   "config": {
     "connector.class": "com.mindsdb.kafka.connect.MindsDBConnector",
-    "value.converter": "io.confluent.connect.avro.AvroConverter",
-    "errors.tolerance": "all",
-    "errors.log.enable": "true",
-    "errors.log.include.messages": "true",
-    "topics": "myTopic",
-    "mindsdb.url": "http://mindsdb-server:47334",
-    "kafka.api.host": "http://broker",
-    "kafka.api.port": "9092",
-    "kafka.api.name": "kafkaMindsTest",
-    "predictor.name": "testPredictor",
-    "output.forecast.topic": "topito",
-    "output.anomaly.topic": "topitoErr",
-    "value.converter.schema.registry.url": "http://schema-registry:8081"
+    "topics": "InputDataTopic",
+    "mindsdb.url": "https://cloud.mindsdb.com",
+    "mindsdb.user": "Cloud User",
+    "mindsdb.password": "Cloud Password",
+    "kafka.api.host": "kafka_host",
+    "kafka.api.port": "kafka_port",
+    "predictor.name": "hrentals",
+    "predictor.name": "predictorName",
+    "output.forecast.topic": "OutputDataTopic",
+    "output.anomaly.topic": "AnomalyOutputDataTopic",
+    "security.protocol": "SASL_PLAINTEXT",
+    "sasl.mechanism": "PLAIN",
+    "sasl.plain.username": "kafkauser",
+    "sasl.plain.password": "kafkapassword"
   }
 }
